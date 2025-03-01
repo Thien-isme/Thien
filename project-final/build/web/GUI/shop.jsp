@@ -80,9 +80,9 @@
                                 if (types.equals("Types")) {
                             %>
                             <option value="">Types</option>
-                            <option value="Fullface">Fullface 1</option>
-                            <option value="Three-Quarter">Three-Quarter 2</option>
-                            <option value="Half Helmet">Half Helmet 3</option>
+                            <option value="Fullface">Fullface</option>
+                            <option value="Three-Quarter">Three-Quarter</option>
+                            <option value="Half Helmet">Half Helmet</option>
                             <%
                             } else {
                             %>
@@ -127,8 +127,8 @@
                             %>
                             <option value="<%=color%>"><%=color%></option>
                             <%
-                                        };
-                                    } %>
+                                    };
+                                } %>
 
                         </select>
 
@@ -188,11 +188,7 @@
                                 }
                             %>
 
-<!--                            <option value=""><%=price%> </option>
 
-<option value="0-500000">$0-50000</option>
-<option value="500000-1000000">$500000-1000000</option>
-<option value="1000000-3000000">$1000000-3000000</option>-->
                         </select>
                         <button>Submit</button>
                     </form>
@@ -200,13 +196,13 @@
 
                     <form action="<%= url1%>/san-pham" method="GET" class="d-flex align-items-center">
                         <input type="hidden" name="hanhdong" value="sort">
-                        
+
                         <!--4 cái thông sô search bên trái-->
                         <input type="hidden" name="types" value="<%=types%>">
                         <input type="hidden" name="color" value="<%=Color%>">
                         <input type="hidden" name="size" value="<%=size%>">
                         <input type="hidden" name="price" value="<%=price%>">
-                        
+
                         <input type="hidden" name="keyword" value="<%=request.getAttribute("keyword")%>">
                         <label for="sort-filter" class="me-2">Sort by:</label>
                         <select class="filter" id="sort-filter" name="sortPrices" onchange="this.form.submit()">
@@ -251,7 +247,7 @@
                     %>             
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <div class="box">
-                            <a href="<%=url%>/sanpham/product-details.jsp">
+                            <a href="<%=url%>/sanpham/product-details.jsp?masanpham=<%=sanPham.getMasanpham()%>">
                                 <div class="img-name">
                                     <h6 class="col-12 text-center"><%=sanPham.getTensanpham()%> <%=sanPham.getMasanpham()%>  </h6>
                                 </div>
@@ -264,15 +260,21 @@
                                         <span> $<%=sanPham.getGiaban()%> </span>
                                     </h6>
                                 </div>
+
+                            </a>
+                                    <form action="fdsf">
+
+
                                 <div class="text-center">
                                     <button class="img-name ">
                                         <h6 class="col-12 text-center">Add to card</h6>
                                     </button>
                                 </div>
+                            </form> 
 
-                                <div class="new">
-                                    <span> New </span>
-                                </div>
+                            <div class="new">
+                                <span> New </span>
+                            </div>
                             </a>
                         </div>
                     </div>        

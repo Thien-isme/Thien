@@ -1,3 +1,4 @@
+<%@page import="model.Money"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="model.SanPham"%>
 <%@page import="java.util.List"%>
@@ -43,6 +44,13 @@
         <!-- Font Awesome 6 -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+
+
+        <!--Slider sản phẩm-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     </head>
 
     <body>
@@ -53,29 +61,60 @@
             <!-- content -->
             <section class="py-5">
                 <div class="container">
+                    
+                    <!--Lấy sản phẩm hiện lên-->
+                    <%
+                        String masanpham = request.getParameter("masanpham");
+                        SanPhamDAO dao = new SanPhamDAO();
+                        SanPham sp1 = new SanPham();
+                        sp1 = dao.selectById(masanpham);
+                        if(sp1==null){
+                            System.out.println("sp1 bị null");
+                        }else {
+                            System.out.println("sp1sdsd bị null");
+                        }
+                        %>
                     <div class="row gx-5">
                         <aside class="col-lg-6">
-                            <div class="border rounded-4 mb-3 d-flex justify-content-center">
-                                <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp">
-                                    <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp" />
-                                </a>
+                            <!--../GUI/imgsanpham/1.png-->
+                            <div id="carouselExampleIndicators" class="carousel slide">
+                                <div class="carousel-indicators" style="display: none" >
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                </div>
+                                <div class="carousel-inner" >
+                                    <div class="carousel-item active">
+                                        <img width="400px"src="../GUI/imgsanpham/<%= sp1.getHinhanhsanpham()%> " class="d-block w-100" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img width="400" src="../GUI/imgsanpham/2.png" class="d-block w-100" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img width="400px" src="../GUI/imgsanpham/3.png" class="d-block w-100" alt="...">
+                                    </div>
+                                    
+                                     <div class="carousel-item">
+                                        <img width="400px" src="../GUI/imgsanpham/4.png" class="d-block w-100" alt="...">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true" ><ion-icon name="caret-back-outline"></ion-icon></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"><ion-icon name="caret-back-outline"></ion-icon></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
-                            <div class="d-flex justify-content-center mb-3">
-                                <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big1.webp" class="item-thumb">
-                                    <img width="60" height="60" class="rounded-2" src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big1.webp" />
-                                </a>
-                                <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big2.webp" class="item-thumb">
-                                    <img width="60" height="60" class="rounded-2" src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big2.webp" />
-                                </a>
-                                <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big3.webp" class="item-thumb">
-                                    <img width="60" height="60" class="rounded-2" src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big3.webp" />
-                                </a>
-                                <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big4.webp" class="item-thumb">
-                                    <img width="60" height="60" class="rounded-2" src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big4.webp" />
-                                </a>
-                                <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp" class="item-thumb">
-                                    <img width="60" height="60" class="rounded-2" src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp" />
-                                </a>
+                            <div class="row">
+                                <div class="col-3"> <img width="120px" src="../GUI/imgsanpham/1.png"> </div>
+                                <div class="col-3"> <img width="120px" src="../GUI/imgsanpham/1.png"> </div>
+                                <div class="col-3"> <img width="120px" src="../GUI/imgsanpham/1.png"> </div>
+                                <div class="col-3"> <img width="120px" src="../GUI/imgsanpham/1.png"> </div>
+
+
                             </div>
                             <!-- thumbs-wrap.// -->
                             <!-- gallery-wrap .end// -->
@@ -83,8 +122,7 @@
                         <main class="col-lg-6">
                             <div class="ps-lg-3">
                                 <h4 class="title text-dark">
-                                    Quality Men's Hoodie for Winter, Men's Fashion <br />
-                                    Casual Hoodie
+                                    <%= sp1.getTensanpham() +" "+ sp1.getMasanpham() %>
                                 </h4>
                                 <div class="d-flex flex-row my-3">
                                     <div class="text-warning mb-1 me-2">
@@ -98,31 +136,30 @@
                                         </span>
                                     </div>
                                     <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>154 orders</span>
-                                    <span class="text-success ms-2">In stock</span>
+                                    <!--<span class="text-success ms-2">In stock</span>-->
                                 </div>
 
                                 <div class="mb-3">
-                                    <span class="h5">$75.00</span>
+                                    <span class="h5"> <%= Money.getMoney(sp1.getGiaban()) %> </span>
                                     <span class="text-muted">/per box</span>
                                 </div>
 
                                 <p>
-                                    Modern look and quality demo item is a streetwear-inspired collection that continues to break away from the conventions of mainstream fashion. Made in Italy, these black and brown clothing low-top shirts for
-                                    men.
+                                    <%= sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota() + sp1.getMota()  %>
                                 </p>
 
                                 <div class="row">
                                     <dt class="col-3">Type:</dt>
-                                    <dd class="col-9">Regular</dd>
+                                    <dd class="col-9"><%= sp1.getKieumau() %></dd>
 
                                     <dt class="col-3">Color</dt>
-                                    <dd class="col-9">Brown</dd>
+                                    <dd class="col-9"><%= sp1.getMausac() %></dd>
 
-                                    <dt class="col-3">Material</dt>
-                                    <dd class="col-9">Cotton, Jeans</dd>
+                                    <dt class="col-3">Status</dt>
+                                    <dd class="col-9"><%= sp1.getSoluong()> 0?"In Stock":"Sold out"  %></dd>
 
                                     <dt class="col-3">Brand</dt>
-                                    <dd class="col-9">Reebook</dd>
+                                    <dd class="col-9">THT Store</dd>
                                 </div>
 
                                 <hr />
@@ -137,22 +174,11 @@
                                         </select>
                                     </div>
                                     <!-- col.// -->
-                                    <div class="col-md-4 col-6 mb-3">
-                                        <label class="mb-2 d-block">Quantity</label>
-                                        <div class="input-group mb-3" style="width: 170px;">
-                                            <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-                                            <input type="text" class="form-control text-center border border-secondary" placeholder="14" aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                                            <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
                                 <a href="#" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
-                                <a href="#" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i class="me-1 fa fa-heart fa-lg"></i> Save </a>
+                                <!--<a href="#" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i class="me-1 fa fa-heart fa-lg"></i> Save </a>-->
                             </div>
                         </main>
                     </div>
@@ -258,51 +284,41 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Similar items</h5>
+                                        
+                                        <%
+                                            
+                                            List<SanPham> list = dao.selectAll();
+                                            
+                                            int count4 = -1;
+                                            for (SanPham sp : list) {
+                                                  count4++;
+                                                if(count4 == 4){
+                                                    break ;
+                                                }else {
+                                        %>
                                         <div class="d-flex mb-3">
                                             <a href="#" class="me-3">
-                                                <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/8.webp" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                                                <img src="../GUI/imgsanpham/1.png" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
                                             </a>
                                             <div class="info">
                                                 <a href="#" class="nav-link mb-1">
-                                                    Rucksack Backpack Large <br />
-                                                    Line Mounts
+                                                    <%= sp.getTensanpham() + sp.getMasanpham() %> <br />
+                                                    <%= sp.getKieumau() %>
                                                 </a>
-                                                <strong class="text-dark"> $38.90</strong>
+                                                <strong class="text-dark"> <%= Money.getMoney(sp.getGiaban()) %> </strong>
                                             </div>
                                         </div>
+                                        
+                                        
+                                        
+                                        <%
+                                                }
+                                                }
+                                            %>
+                                        
+                                        
 
-                                        <div class="d-flex mb-3">
-                                            <a href="#" class="me-3">
-                                                <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/9.webp" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
-                                            </a>
-                                            <div class="info">
-                                                <a href="#" class="nav-link mb-1">
-                                                    Summer New Men's Denim <br />
-                                                    Jeans Shorts
-                                                </a>
-                                                <strong class="text-dark"> $29.50</strong>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mb-3">
-                                            <a href="#" class="me-3">
-                                                <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/10.webp" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
-                                            </a>
-                                            <div class="info">
-                                                <a href="#" class="nav-link mb-1"> T-shirts with multiple colors, for men and lady </a>
-                                                <strong class="text-dark"> $120.00</strong>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex">
-                                            <a href="#" class="me-3">
-                                                <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/11.webp" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
-                                            </a>
-                                            <div class="info">
-                                                <a href="#" class="nav-link mb-1"> Blazer Suit Dress Jacket for Men, Blue color </a>
-                                                <strong class="text-dark"> $339.90</strong>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>

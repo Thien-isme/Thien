@@ -358,5 +358,44 @@ public class SanPhamDAO implements DAOInterface<SanPham> {
 
         return list;
     }
+    
+    public SanPham selectById(String masanpham) {
+        SanPham sanPham = null;
+        String sql = "SELECT * FROM sanpham WHERE masanpham=?";
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = JDBCUtil.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, masanpham);
+
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                sanPham = new SanPham(
+                        rs.getString("masanpham"),
+                        rs.getString("tensanpham"),
+                        rs.getString("hinhanhsanpham"),
+                        rs.getString("mausac"),
+                        rs.getString("kichco"),
+                        rs.getInt("soluong"),
+                        rs.getString("kieumau"),
+                        rs.getDouble("gianhap"),
+                        rs.getDouble("giaban"),
+                        rs.getInt("giamgia"),
+                        rs.getString("mota")
+                );
+            }
+
+            JDBCUtil.close(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return sanPham;
+    }
 
 }

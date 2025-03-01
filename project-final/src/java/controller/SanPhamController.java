@@ -53,6 +53,8 @@ public class SanPhamController extends HttpServlet {
             search(request, response);
         } else if (hanhdong.equals("sort")) {
             sort(request, response);
+        } else if (hanhdong.equals("productdetails")) {
+            productdetails(request, response);
         }
 
     }
@@ -192,8 +194,7 @@ public class SanPhamController extends HttpServlet {
             String keyword = request.getParameter("keyword");
 
             SanPhamDAO spd = new SanPhamDAO();
-                list = spd.sort(list, sortPrices);
-            
+            list = spd.sort(list, sortPrices);
 
             if (list != null && !list.isEmpty()) {
 
@@ -207,6 +208,19 @@ public class SanPhamController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void productdetails(HttpServletRequest request, HttpServletResponse response) {
+        String masanpham = request.getParameter("masanpham");
+        
+        SanPhamDAO sanPhamDAO = new SanPhamDAO();
+        SanPham sanPham = sanPhamDAO.selectById(masanpham);
+        
+        
+        
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
