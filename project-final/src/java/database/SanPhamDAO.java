@@ -5,6 +5,8 @@ import utils.JDBCUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SanPhamDAO implements DAOInterface<SanPham> {
@@ -305,6 +307,56 @@ public class SanPhamDAO implements DAOInterface<SanPham> {
         }
         return list;
 
+    }
+
+    public List<SanPham> searchList(String keyword) {
+        List<SanPham> list = new ArrayList<SanPham>();
+        SanPham sp = null;
+        try {
+            Connection con = JDBCUtil.getConnection();
+            String sql = "SELECT * FROM sanpham WHERE tensanpham LIKE ? OR masanpham LIKE ? OR mausac LIKE ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, '%' + keyword + '%');
+            ps.setString(2, '%' + keyword + '%');
+            ps.setString(3, '%' + keyword + '%');
+            ResultSet rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    sp = new SanPham(rs.getString("masanpham"), rs.getString("tensanpham"), rs.getString("hinhanhsanpham"), rs.getString("mausac"), rs.getString("kichco"),
+                            rs.getInt("soluong"), rs.getString("kieumau"), rs.getDouble("gianhap"),
+                            rs.getDouble("giaban"), rs.getInt("giamgia"), rs.getString("mota"));
+                    list.add(sp);
+                }
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<SanPham> sort(List<SanPham> list, String sortPrices) {
+        if(sortPrices.equals("default")){
+            return list;
+        }
+        
+        if (sortPrices.equals("price-asc")) {
+            Collections.sort(list, new Comparator<SanPham>() {
+                @Override
+                public int compare(SanPham o1, SanPham o2) {
+                    return o1.getGiaban().compareTo(o2.getGiaban());
+                }
+            });
+        } else if (sortPrices.equals("price-desc")) {
+            Collections.sort(list, new Comparator<SanPham>() {
+                @Override
+                public int compare(SanPham o1, SanPham o2) {
+                    return o2.getGiaban().compareTo(o1.getGiaban());
+                }
+            });
+        }
+
+        return list;
     }
 
 }

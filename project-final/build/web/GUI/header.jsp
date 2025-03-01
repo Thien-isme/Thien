@@ -77,9 +77,13 @@
                 <a href="<%= url%>/khachhang/cart.jsp">
                     <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                 </a>
-                <form class="d-flex ms-auto" role="search">
+                    <form class="d-flex ms-auto" role="search" action="<%= url %>/san-pham" method="GET">
+                        <input type="hidden" name="hanhdong" value="search">
                     <div class="input-group">
-                        <input type="search" class="form-control text-dark border-0" placeholder="Searching" aria-label="Search" style="outline: none;">
+                        <% String keyword = request.getAttribute("keyword")+"";
+                            keyword = keyword.equals("null")?"": keyword;
+                        %>    
+                        <input name="keyword" value="<%= keyword %>" type="text" class="form-control text-dark border-0" placeholder="Searching" aria-label="Search" style="outline: none;">
                         <button class="btn btn-dark" type="submit">
                             <i class="fa fa-search"></i>
                         </button>

@@ -11,7 +11,11 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,6 +49,10 @@ public class SanPhamController extends HttpServlet {
 
         if (hanhdong.equals("searchByConditions")) {
             searchByConditions(request, response);
+        } else if (hanhdong.equals("search")) {
+            search(request, response);
+        } else if (hanhdong.equals("sort")) {
+            sort(request, response);
         }
 
     }
@@ -82,20 +90,6 @@ public class SanPhamController extends HttpServlet {
             }
 
 // Thêm điều kiện sắp xếp
-            String sort = request.getParameter("sort-filter");
-            if (sort != null && !sort.isEmpty()) {
-                switch (sort) {
-                    case "price-asc":
-                        sql += " ORDER BY giaban ASC";
-                        break;
-                    case "price-desc":
-                        sql += " ORDER BY giaban DESC";
-                        break;
-                    case "newest":
-                        sql += " ORDER BY masanpham DESC"; // Giả sử mã sản phẩm tăng dần theo thời gian
-                        break;
-                }
-            }
             Connection conn = JDBCUtil.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             int index = 1;
@@ -146,15 +140,73 @@ public class SanPhamController extends HttpServlet {
             request.setAttribute("size", size);
 
             request.setAttribute("price", price);
-            String nextaction ="hanhdong=searchByConditions&types="+types+"&color="+color+"&size="+ size+"&price="+price;
-            request.setAttribute("nextaction", nextaction);
-            
+
             session.setAttribute("list", list);
 
             request.getRequestDispatcher("/GUI/shop.jsp").forward(request, response);
         } catch (Exception e) {
         }
 
+    }
+
+    public void search(HttpServletRequest request, HttpServletResponse response) {
+        List<SanPham> list = new ArrayList<SanPham>();
+        String url = "";
+        try {
+            HttpSession session = request.getSession();
+            String keyword = request.getParameter("keyword");
+            SanPhamDAO spd = new SanPhamDAO();
+            list = spd.searchList(keyword);
+
+            if (list != null && !list.isEmpty()) {
+
+                session.setAttribute("list", list);
+                request.setAttribute("keyword", keyword);
+                request.getRequestDispatcher("/GUI/shop.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/GUI/shop.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sort(HttpServletRequest request, HttpServletResponse response) {
+        String types = request.getParameter("types");
+        String color = request.getParameter("color");
+
+        String size = request.getParameter("size");
+        String price = request.getParameter("price");
+        request.setAttribute("types", types);
+        request.setAttribute("color", color);
+
+        request.setAttribute("size", size);
+
+        request.setAttribute("price", price);
+        String sortPrices = request.getParameter("sortPrices");
+        List<SanPham> list = new ArrayList<SanPham>();
+        String url = "";
+        try {
+            HttpSession session = request.getSession();
+            list = (List<SanPham>) session.getAttribute("list");
+            String keyword = request.getParameter("keyword");
+
+            SanPhamDAO spd = new SanPhamDAO();
+                list = spd.sort(list, sortPrices);
+            
+
+            if (list != null && !list.isEmpty()) {
+
+                session.setAttribute("list", list);
+                request.setAttribute("keyword", keyword);
+
+                request.getRequestDispatcher("/GUI/shop.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/GUI/shop.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

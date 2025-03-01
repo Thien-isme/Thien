@@ -70,58 +70,159 @@
                     <form action="<%=url1%>/san-pham" method="get">
                         <input type="hidden" name="hanhdong" value="searchByConditions">
 
+                        <%
+                            String types = request.getAttribute("types") + "";
+                            types = types.equals("null") || types.equals("") ? "Types" : types;
+                        %>  
                         <select class="filter" id="category-filter" name="types">
-                            <option value=""><%=request.getAttribute("types")%> </option>
-                            <option value="fullface">Fullface</option>
-                            <option value="half">1/2</option>
-                            <option value="three">3/4</option>
+
+                            <%
+                                if (types.equals("Types")) {
+                            %>
+                            <option value="">Types</option>
+                            <option value="Fullface">Fullface 1</option>
+                            <option value="Three-Quarter">Three-Quarter 2</option>
+                            <option value="Half Helmet">Half Helmet 3</option>
+                            <%
+                            } else {
+                            %>
+                            <option value="<%=types%>"><%=types%> </option>
+
+                            <option value="">Types</option>
+                            <option value="Fullface">Fullface</option>
+                            <option value="Three-Quarter">Three-Quarter</option>
+                            <option value="Half Helmet">Half Helmet</option>
+                            <%
+                                }
+                            %>
+
+
+
+
                         </select>
 
+                        <%
+                            String Color = request.getAttribute("color") + "";
+                            Color = Color.equals("null") || Color.equals("") ? "Color" : Color;
+                        %>     
                         <select class="filter" id="brand-filter" name="color">
-                            <option value=""><%=request.getAttribute("color")%> </option>
+
+                            <%
+                                if (Color.equals("Color")) {
+                            %>
+                            <option value="">Color</option>
                             <%
                                 for (String color : listColor) {
-
-
                             %>
                             <option value="<%=color%>"><%=color%></option>
-                            <%                                }
+                            <%
+                                }
+                            } else {
                             %>
+                            <option value="<%=Color%>"><%=Color%></option>
+                            <option value="">Color</option>
+
+                            <%
+                                for (String color : listColor) {
+                            %>
+                            <option value="<%=color%>"><%=color%></option>
+                            <%
+                                        };
+                                    } %>
+
                         </select>
 
 
 
-
+                        <%
+                            String size = request.getAttribute("size") + "";
+                            size = size.equals("null") || size.equals("") ? "Size" : size;
+                        %>
                         <select class="filter" id="status-filter" name="size">
-                            <option value=""><%=request.getAttribute("size")%> </option>
+                            <%
+                                if (size.equals("Size")) {
+                            %>
+                            <option value="">Size</option>
                             <option value="S">S</option>
                             <option value="M">M</option>
                             <option value="L">L</option>
                             <option value="XL">XL</option>
+                            <%
+                            } else {
+                            %>
+                            <option value="<%=size%>"><%=size%> </option>
+
+                            <option value="">Size</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <%
+                                }
+                            %>
+
                         </select>
 
+                        <%
+                            String price = request.getAttribute("price") + "";
+                            price = price.equals("null") || price.equals("") ? "Price" : price;
+                        %>     
                         <select class="filter" id="price-filter" name="price">
-                            <option value=""><%=request.getAttribute("price")%> </option>
+                            <%
+                                if (price.equals("Price")) {
+                            %>
+                            <option value="">Price</option>
                             <option value="0-500000">$0-50000</option>
                             <option value="500000-1000000">$500000-1000000</option>
                             <option value="1000000-3000000">$1000000-3000000</option>
+                            <%
+                            } else {
+                            %>
+                            <option value="<%=price%>"><%=price%> </option>
+                            <option value="">Price</option>
+
+                            <option value="0-500000">$0-50000</option>
+                            <option value="500000-1000000">$500000-1000000</option>
+                            <option value="1000000-3000000">$1000000-3000000</option>
+                            <%
+                                }
+                            %>
+
+<!--                            <option value=""><%=price%> </option>
+
+<option value="0-500000">$0-50000</option>
+<option value="500000-1000000">$500000-1000000</option>
+<option value="1000000-3000000">$1000000-3000000</option>-->
                         </select>
                         <button>Submit</button>
                     </form>
-                    <select class="filter" id="sort-filter">
-                        <option value="">Sort By</option>
-                         <option value="price-asc"> Price: Low to High</option>
-                        <option value="price-desc">Price: High to Low</option>
-                        <option value="newest">Newest Arrivals</option>
-                    </select>
+
+
+                    <form action="<%= url1%>/san-pham" method="GET" class="d-flex align-items-center">
+                        <input type="hidden" name="hanhdong" value="sort">
+                        
+                        <!--4 cái thông sô search bên trái-->
+                        <input type="hidden" name="types" value="<%=types%>">
+                        <input type="hidden" name="color" value="<%=Color%>">
+                        <input type="hidden" name="size" value="<%=size%>">
+                        <input type="hidden" name="price" value="<%=price%>">
+                        
+                        <input type="hidden" name="keyword" value="<%=request.getAttribute("keyword")%>">
+                        <label for="sort-filter" class="me-2">Sort by:</label>
+                        <select class="filter" id="sort-filter" name="sortPrices" onchange="this.form.submit()">
+                            <option value="">Default</option>
+                            <option value="price-asc"<%= "price-asc".equals(request.getParameter("sortPrices")) ? "selected" : ""%>>Price: Low to High</option>
+                            <option value="price-desc"<%= "price-desc".equals(request.getParameter("sortPrices")) ? "selected" : ""%>>Price: High to Low</option>
+                        </select>
+                    </form>
 
                 </div>
 
                 <div class="row">
                     <%  SanPhamDAO dao = new SanPhamDAO();
 
-                        ArrayList<SanPham> list = (ArrayList < SanPham >) session.getAttribute("list");
-                        if(list==null){
+                        ArrayList<SanPham> list = (ArrayList< SanPham>) session.getAttribute("list");
+                        if (list == null) {
                             list = dao.selectAll();
                         }
                         float soLuongPage = (float) list.size() / 16 + 1;

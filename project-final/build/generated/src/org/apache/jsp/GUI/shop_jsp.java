@@ -239,9 +239,19 @@ public final class shop_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("/khachhang/cart.jsp\">\r\n");
       out.write("                    <i class=\"fa fa-shopping-bag\" aria-hidden=\"true\"></i>\r\n");
       out.write("                </a>\r\n");
-      out.write("                <form class=\"d-flex ms-auto\" role=\"search\">\r\n");
+      out.write("                    <form class=\"d-flex ms-auto\" role=\"search\" action=\"");
+      out.print( url );
+      out.write("/san-pham\" method=\"GET\">\r\n");
+      out.write("                        <input type=\"hidden\" name=\"hanhdong\" value=\"search\">\r\n");
       out.write("                    <div class=\"input-group\">\r\n");
-      out.write("                        <input type=\"search\" class=\"form-control text-dark border-0\" placeholder=\"Searching\" aria-label=\"Search\" style=\"outline: none;\">\r\n");
+      out.write("                        ");
+ String keyword = request.getAttribute("keyword")+"";
+                            keyword = keyword.equals("null")?"": keyword;
+                        
+      out.write("    \r\n");
+      out.write("                        <input name=\"keyword\" value=\"");
+      out.print( keyword );
+      out.write("\" type=\"text\" class=\"form-control text-dark border-0\" placeholder=\"Searching\" aria-label=\"Search\" style=\"outline: none;\">\r\n");
       out.write("                        <button class=\"btn btn-dark\" type=\"submit\">\r\n");
       out.write("                            <i class=\"fa fa-search\"></i>\r\n");
       out.write("                        </button>\r\n");
@@ -271,24 +281,67 @@ public final class shop_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("/san-pham\" method=\"get\">\n");
       out.write("                        <input type=\"hidden\" name=\"hanhdong\" value=\"searchByConditions\">\n");
       out.write("\n");
+      out.write("                        ");
+
+                            String types = request.getAttribute("types") + "";
+                            types = types.equals("null") || types.equals("") ? "Types" : types;
+                        
+      out.write("  \n");
       out.write("                        <select class=\"filter\" id=\"category-filter\" name=\"types\">\n");
-      out.write("                            <option value=\"\">");
-      out.print(request.getAttribute("types"));
+      out.write("\n");
+      out.write("                            ");
+
+                                if (types.equals("Types")) {
+                            
+      out.write("\n");
+      out.write("                            <option value=\"\">Types</option>\n");
+      out.write("                            <option value=\"Fullface\">Fullface 1</option>\n");
+      out.write("                            <option value=\"Three-Quarter\">Three-Quarter 2</option>\n");
+      out.write("                            <option value=\"Half Helmet\">Half Helmet 3</option>\n");
+      out.write("                            ");
+
+                            } else {
+                            
+      out.write("\n");
+      out.write("                            <option value=\"");
+      out.print(types);
+      out.write('"');
+      out.write('>');
+      out.print(types);
       out.write(" </option>\n");
-      out.write("                            <option value=\"fullface\">Fullface</option>\n");
-      out.write("                            <option value=\"half\">1/2</option>\n");
-      out.write("                            <option value=\"three\">3/4</option>\n");
+      out.write("\n");
+      out.write("                            <option value=\"\">Types</option>\n");
+      out.write("                            <option value=\"Fullface\">Fullface 1</option>\n");
+      out.write("                            <option value=\"Three-Quarter\">Three-Quarter 2</option>\n");
+      out.write("                            <option value=\"Half Helmet\">Half Helmet 3</option>\n");
+      out.write("                            ");
+
+                                }
+                            
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("                        </select>\n");
       out.write("\n");
+      out.write("                        ");
+
+                            String Color = request.getAttribute("color") + "";
+                            Color = Color.equals("null") || Color.equals("") ? "Color" : Color;
+                        
+      out.write("     \n");
       out.write("                        <select class=\"filter\" id=\"brand-filter\" name=\"color\">\n");
-      out.write("                            <option value=\"\">");
-      out.print(request.getAttribute("color"));
-      out.write(" </option>\n");
+      out.write("\n");
+      out.write("                            ");
+
+                                if (Color.equals("Color")) {
+                            
+      out.write("\n");
+      out.write("                            <option value=\"\">Color</option>\n");
       out.write("                            ");
 
                                 for (String color : listColor) {
-
-
                             
       out.write("\n");
       out.write("                            <option value=\"");
@@ -298,40 +351,167 @@ public final class shop_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.print(color);
       out.write("</option>\n");
       out.write("                            ");
+
                                 }
+                            } else {
                             
+      out.write("\n");
+      out.write("                            <option value=\"");
+      out.print(Color);
+      out.write('"');
+      out.write('>');
+      out.print(Color);
+      out.write("</option>\n");
+      out.write("                            <option value=\"\">Color</option>\n");
+      out.write("\n");
+      out.write("                            ");
+
+                                for (String color : listColor) {
+                            
+      out.write("\n");
+      out.write("                            <option value=\"");
+      out.print(color);
+      out.write('"');
+      out.write('>');
+      out.print(color);
+      out.write("</option>\n");
+      out.write("                            ");
+
+                                        };
+                                    } 
+      out.write("\n");
       out.write("\n");
       out.write("                        </select>\n");
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("                        ");
+
+                            String size = request.getAttribute("size") + "";
+                            size = size.equals("null") || size.equals("") ? "Size" : size;
+                        
       out.write("\n");
       out.write("                        <select class=\"filter\" id=\"status-filter\" name=\"size\">\n");
-      out.write("                            <option value=\"\">");
-      out.print(request.getAttribute("size"));
-      out.write(" </option>\n");
+      out.write("                            ");
+
+                                if (size.equals("Size")) {
+                            
+      out.write("\n");
+      out.write("                            <option value=\"\">Size</option>\n");
       out.write("                            <option value=\"S\">S</option>\n");
       out.write("                            <option value=\"M\">M</option>\n");
       out.write("                            <option value=\"L\">L</option>\n");
       out.write("                            <option value=\"XL\">XL</option>\n");
+      out.write("                            ");
+
+                            } else {
+                            
+      out.write("\n");
+      out.write("                            <option value=\"");
+      out.print(size);
+      out.write('"');
+      out.write('>');
+      out.print(size);
+      out.write(" </option>\n");
+      out.write("\n");
+      out.write("                            <option value=\"\">Size</option>\n");
+      out.write("                            <option value=\"S\">S</option>\n");
+      out.write("                            <option value=\"M\">M</option>\n");
+      out.write("                            <option value=\"L\">L</option>\n");
+      out.write("                            <option value=\"XL\">XL</option>\n");
+      out.write("                            ");
+
+                                }
+                            
+      out.write("\n");
+      out.write("\n");
       out.write("                        </select>\n");
       out.write("\n");
+      out.write("                        ");
+
+                            String price = request.getAttribute("price") + "";
+                            price = price.equals("null") || price.equals("") ? "Price" : price;
+                        
+      out.write("     \n");
       out.write("                        <select class=\"filter\" id=\"price-filter\" name=\"price\">\n");
-      out.write("                            <option value=\"\">");
-      out.print(request.getAttribute("price"));
-      out.write(" </option>\n");
+      out.write("                            ");
+
+                                if (price.equals("Price")) {
+                            
+      out.write("\n");
+      out.write("                            <option value=\"\">Price</option>\n");
       out.write("                            <option value=\"0-500000\">$0-50000</option>\n");
       out.write("                            <option value=\"500000-1000000\">$500000-1000000</option>\n");
       out.write("                            <option value=\"1000000-3000000\">$1000000-3000000</option>\n");
+      out.write("                            ");
+
+                            } else {
+                            
+      out.write("\n");
+      out.write("                            <option value=\"");
+      out.print(price);
+      out.write('"');
+      out.write('>');
+      out.print(price);
+      out.write(" </option>\n");
+      out.write("                            <option value=\"\">Price</option>\n");
+      out.write("\n");
+      out.write("                            <option value=\"0-500000\">$0-50000</option>\n");
+      out.write("                            <option value=\"500000-1000000\">$500000-1000000</option>\n");
+      out.write("                            <option value=\"1000000-3000000\">$1000000-3000000</option>\n");
+      out.write("                            ");
+
+                                }
+                            
+      out.write("\n");
+      out.write("\n");
+      out.write("<!--                            <option value=\"\">");
+      out.print(price);
+      out.write(" </option>\n");
+      out.write("\n");
+      out.write("<option value=\"0-500000\">$0-50000</option>\n");
+      out.write("<option value=\"500000-1000000\">$500000-1000000</option>\n");
+      out.write("<option value=\"1000000-3000000\">$1000000-3000000</option>-->\n");
       out.write("                        </select>\n");
       out.write("                        <button>Submit</button>\n");
       out.write("                    </form>\n");
-      out.write("                    <select class=\"filter\" id=\"sort-filter\">\n");
-      out.write("                        <option value=\"\">Sort By</option>\n");
-      out.write("                        <option value=\"price-asc\">Price: Low to High</option>\n");
-      out.write("                        <option value=\"price-desc\">Price: High to Low</option>\n");
-      out.write("                        <option value=\"newest\">Newest Arrivals</option>\n");
-      out.write("                    </select>\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("                    <form action=\"");
+      out.print( url1);
+      out.write("/san-pham\" method=\"GET\" class=\"d-flex align-items-center\">\n");
+      out.write("                        <input type=\"hidden\" name=\"hanhdong\" value=\"sort\">\n");
+      out.write("                        \n");
+      out.write("                        <!--4 cái thông sô search bên trái-->\n");
+      out.write("                        <input type=\"hidden\" name=\"types\" value=\"");
+      out.print(types);
+      out.write("\">\n");
+      out.write("                        <input type=\"hidden\" name=\"color\" value=\"");
+      out.print(Color);
+      out.write("\">\n");
+      out.write("                        <input type=\"hidden\" name=\"size\" value=\"");
+      out.print(size);
+      out.write("\">\n");
+      out.write("                        <input type=\"hidden\" name=\"price\" value=\"");
+      out.print(price);
+      out.write("\">\n");
+      out.write("                        \n");
+      out.write("                        <input type=\"hidden\" name=\"keyword\" value=\"");
+      out.print(request.getAttribute("keyword"));
+      out.write("\">\n");
+      out.write("                        <label for=\"sort-filter\" class=\"me-2\">Sort by:</label>\n");
+      out.write("                        <select class=\"filter\" id=\"sort-filter\" name=\"sortPrices\" onchange=\"this.form.submit()\">\n");
+      out.write("                            <option value=\"default\"");
+      out.print( "default".equals(request.getParameter("sortPrices")) ? "selected" : "");
+      out.write(">Default</option>\n");
+      out.write("                            <option value=\"price-asc\"");
+      out.print( "price-asc".equals(request.getParameter("sortPrices")) ? "selected" : "");
+      out.write(">Price: Low to High</option>\n");
+      out.write("                            <option value=\"price-desc\"");
+      out.print( "price-desc".equals(request.getParameter("sortPrices")) ? "selected" : "");
+      out.write(">Price: High to Low</option>\n");
+      out.write("                        </select>\n");
+      out.write("                    </form>\n");
       out.write("\n");
       out.write("                </div>\n");
       out.write("\n");
@@ -339,8 +519,8 @@ public final class shop_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    ");
   SanPhamDAO dao = new SanPhamDAO();
 
-                        ArrayList<SanPham> list = (ArrayList < SanPham >) session.getAttribute("list");
-                        if(list==null){
+                        ArrayList<SanPham> list = (ArrayList< SanPham>) session.getAttribute("list");
+                        if (list == null) {
                             list = dao.selectAll();
                         }
                         float soLuongPage = (float) list.size() / 16 + 1;
