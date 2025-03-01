@@ -11,7 +11,7 @@ public class JDBCUtil {
 //    private static final String user = "sa";
 //    private static final String password = "12345";
     private final static String serverName = "localhost";
-    private final static String dbName = "HelmetStore";
+    private final static String dbName = "HelmetStoreee";
     private final static String portNumber = "1433";
     private final static String instance = "";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
     private final static String userID = "sa";
